@@ -1,0 +1,35 @@
+======= LOG CREATED on ÖÜËÄ 2025/6ÔÂ/05 11:49:32:746 =======
+
+PROGEX (Program Graph Extractor)  [ v3.4.5 ]
+Visit project website @ https://github.com/ghaffarian/progex
+
+PROGEX execution config:
+  Language = Java
+  Output format = DOT
+  Output directory = E:\a-old-lenovo-15II-data\Data\AIforSE\UntaggleCommits\LLM\temp\java_pdg_temp\1\
+  Analysis types = [PDG]
+  Input paths = 
+        E:\a-old-lenovo-15II-data\Data\AIforSE\UntaggleCommits\LLM\temp\java_pdg_temp\1\temp.java
+
+
+# Java source files = 1
+
+
+Program-Dependence Analysis
+===========================
+Parsing all source files ... 
+Done.
+
+Extracting class-infos ... 
+Done.
+
+Initializing method-DEF infos ... 
+Done.
+
+Extracting & Parsing imports ... 
+Done.
+
+Analyzing imports DEF-USE ... 
+Done.
+
+Iterative DEF-USE analysis ... 
