@@ -47,9 +47,7 @@ The folder `code` contains the implementation of *ColaUntangle*, which consists 
 
 ### **data**
 
-The folder `data` is used to store the dataset utilized in our study. Due to the large size of the full dataset, only a statistical summary file is provided in this package. The complete dataset can be downloaded from the following link:
-
-[Provide download link here.]
+The folder `data` is used to store the dataset utilized in our study. Due to the large size of the full dataset, only a statistical summary file is provided in this package. The complete dataset can be downloaded from the following link:  [ColaUntangle Dataset](https://figshare.com/s/ae92eae6ab5b52182075)
 
 ### **tools**
 
@@ -64,7 +62,7 @@ The folder `results` contains the experimental outputs. Specifically:
 
 Due to the large size of the untangling results, only the statistical summary files are included in each variant subfolder. The complete results can be requested via the following link:
 
-[Provide download link here.]
+[ColaUntangle Results](https://figshare.com/s/319067b8b3a8575a2186)
 
 ## Usage
 
@@ -72,9 +70,7 @@ To reproduce our work, please follow these four steps: Dataset Download, Environ
 
 ### Dataset Download
 
-The dataset can be acquired from the following link:
-
-[Provide dataset download link here.]
+The dataset can be acquired from the following link:   [ColaUntangle Dataset](https://figshare.com/s/ae92eae6ab5b52182075)
 
 After downloading the dataset, replace the `data` folder in this package with your downloaded dataset folder.
 
