@@ -8,7 +8,7 @@ from utils.json_utils import load_json
 from utils.config_utils import Config
 
 class Evaluator:
-    def __init__(self, base_dir: str = "../data/corpora_raw", result_dir: str = "../results/untangled_reults", evaluation_file_path: str = "../results/evaluation_result.json"):
+    def __init__(self, base_dir: str, result_dir: str, evaluation_file_path):
         self.base_dir = base_dir
         self.result_dir = result_dir
         self.evaluation_file_path = evaluation_file_path
@@ -88,15 +88,13 @@ class Evaluator:
     def get_single_diff(self, repo_path, chunk_dir):
         label_data =[]
         chunk_path = os.path.join(repo_path, chunk_dir)
-        single_diff_path = os.path.join(chunk_path, "single_diffs")
+        single_diff_path = os.path.join(chunk_path, "atom_commit")
         if os.path.exists(single_diff_path):
             for diff_file in os.listdir(single_diff_path):
                 if diff_file.endswith(".json"):
-                    commit_hash = diff_file.split(".")[0]
                     with open(os.path.join(single_diff_path, diff_file), "r", encoding='utf-8') as f:
                         try:
                             label_data.append({
-                                'hash': commit_hash,
                                 'diff': json.load(f)
                             })
                         except json.JSONDecodeError:
@@ -104,9 +102,7 @@ class Evaluator:
         return label_data
     
     def call_mal(self) -> Dict:
-        """Load data from configured directories"""
         accuracy_dict = {}
-        print(self.result_dir)
         cbar = tqdm.tqdm(os.listdir(self.result_dir), desc="Evaluating results")
         for file in cbar:
             result_path = self.result_dir
@@ -128,16 +124,10 @@ class Evaluator:
             try:
                 with open(os.path.join(result_path, file), "r", encoding='utf-8') as f:
                     llm_response = json.load(f)
-            except json.JSONDecodeError as e:
+                    answer = llm_response.get('answer')
+            except Exception as e:
                 continue
 
-            file_vaild = True
-            answer = llm_response.get('answer')
-            if not isinstance(answer, dict):
-                file_vaild = False
-
-            if not file_vaild:
-                continue
 
             chunk_dir = file.split('_')[1].split(".")[0]
             label_data = self.get_single_diff(repo_path, chunk_dir)

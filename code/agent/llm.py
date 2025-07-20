@@ -257,19 +257,19 @@ def process_item(item, ct: Commit_Decomposer, model_name: str):
     merged_contents, pdg_contents, context_contents = [], None, None
     try:
         chunk_path = os.path.join(base_data_dir, repo_name, chunk_dir)
-        merged_diffs_path = os.path.join(chunk_path, 'zip_merged_diffs')
-        contexts_path_dir = os.path.join(chunk_path, 'contexts')
-        pdgs_path_dir = os.path.join(chunk_path, 'pdgs')
+        merged_diffs_path = os.path.join(chunk_path, 'tangled_commit')
+        contexts_path_dir = os.path.join(chunk_path, 'implicit_contexts')
+        pdgs_path_dir = os.path.join(chunk_path, 'explicit_contexts')
 
         merged_file_name = os.listdir(merged_diffs_path)[0]
         merged_contents = json.dumps(load_json(os.path.join(merged_diffs_path, merged_file_name)), ensure_ascii=False)
 
-        pdg_file_path = os.path.join(pdgs_path_dir, 'filtered_merged_deltaPDG_0.dot')
+        pdg_file_path = os.path.join(pdgs_path_dir, 'explicit_contexts.dot')
         if os.path.exists(pdg_file_path):
             pdg_contents = ReadUtils.obj_dict_to_networkx(ReadUtils.read_graph_from_dot(pdg_file_path))
             pdg_contents = ProcessUtils.nx_to_str(pdg_contents) if pdg_contents else None,
         
-        context_file_path = os.path.join(contexts_path_dir, 'context_deltaPDG_1.dot')
+        context_file_path = os.path.join(contexts_path_dir, 'implicit_contexts.dot')
 
         if os.path.exists(context_file_path):
             context_contents = ReadUtils.obj_dict_to_networkx(ReadUtils.read_graph_from_dot(context_file_path))

@@ -240,18 +240,18 @@ def process_chunk_dir(chunk_dir: str, repo_path: str, git_repo_path: str, repo_n
         thread_id = get_thread_index_java()
     print(f'Thread {thread_id} repo {repo_name}: Processing chunk directory: {chunk_dir}')
     chunk_path = os.path.join(repo_path, chunk_dir)
-    merged_diffs_dir = os.path.join(chunk_path, 'merged_diffs')
+    merged_diffs_dir = os.path.join(chunk_path, 'tangled_commit')
 
     if not os.path.exists(merged_diffs_dir) or len(os.listdir(merged_diffs_dir)) != 1:
         print(f"Thread {thread_id} repo {repo_name}: Skipping {chunk_dir} due to missing or incorrect merged_diffs directory.")
         return
 
-    pdg_dir = os.path.join(chunk_path, 'pdgs')
+    pdg_dir = os.path.join(chunk_path, 'explicit_contexts')
     if not os.path.exists(pdg_dir):
         os.makedirs(pdg_dir)
 
     merged_delta_pdg_path = os.path.join(pdg_dir, 'merged_deltaPDG.dot')
-    filtered_delta_pdg_path = os.path.join(pdg_dir, f'filtered_merged_deltaPDG_{pdg_hop}.dot')
+    filtered_delta_pdg_path = os.path.join(pdg_dir, f'explicit_contexts.dot')
     if os.path.exists(merged_delta_pdg_path) and os.path.exists(filtered_delta_pdg_path):
         print(f"Thread {thread_id} repo {repo_name}: Skipping {chunk_dir} as PDGs already exist.")
         return
@@ -311,11 +311,6 @@ def process_chunk_dir(chunk_dir: str, repo_path: str, git_repo_path: str, repo_n
     filtered_delta_pdg = ProcessUtils.filter_and_reduce_graph(merged_delta_pdg, hop=pdg_hop)
     nx.drawing.nx_pydot.write_dot(filtered_delta_pdg, filtered_delta_pdg_path)
 
-    context_path_dir = os.path.join(chunk_path, 'contexts')
-    os.makedirs(context_path_dir, exist_ok=True)
-    neighbor_delta_pdg_path = os.path.join(context_path_dir, f'context_deltaPDG_{pdg_hop}.dot')
-    neighbor_delta_pdg = ProcessUtils.get_context_graph(merged_delta_pdg, hop=1)
-    nx.drawing.nx_pydot.write_dot(neighbor_delta_pdg, neighbor_delta_pdg_path)
 
 
 def generate_pdg_per_repo_csharp(repo_path: str, git_repo_path: str, repo_name: str, language: str, add_comments: bool,

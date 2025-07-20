@@ -693,7 +693,7 @@ def process_item(item, agent_configs, review_model, base_data_dir, base_result_d
     merged_contents = []
     try:
         chunk_path = os.path.join(base_data_dir, item['repo_name'], item['chunk_dir'])
-        merged_diffs_path = os.path.join(chunk_path, 'zip_merged_diffs')
+        merged_diffs_path = os.path.join(chunk_path, 'tangled_commit')
 
         merged_file_name = os.listdir(merged_diffs_path)[0]
         merged_contents = json.dumps(load_json(os.path.join(merged_diffs_path, merged_file_name)), ensure_ascii=False)

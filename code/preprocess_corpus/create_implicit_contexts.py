@@ -8,12 +8,12 @@ from utils.pdg_utils import  ReadUtils, ProcessUtils
       
             
 def generate_pdg_neighborhoods(chunk_path, pdg_hop=1, context_path_dir=None):
-    pdg_dir = os.path.join(chunk_path, 'pdgs')
+    pdg_dir = os.path.join(chunk_path, 'explicit_contexts')
     if not os.path.exists(pdg_dir):
         print(f'Directory {pdg_dir} does not exist.')
         return
     merged_delta_pdg_path = os.path.join(pdg_dir, 'merged_deltaPDG.dot')
-    filtered_delta_pdg_path = os.path.join(context_path_dir, f'context_deltaPDG_{pdg_hop}.dot')
+    filtered_delta_pdg_path = os.path.join(context_path_dir, f'implicit_contexts.dot')
     if os.path.exists(filtered_delta_pdg_path):
         return
     if not os.path.exists(merged_delta_pdg_path):
@@ -42,7 +42,7 @@ def generate_contexts(base_data_dir, pdg_hop=1):
                 print(f"Chunk path {chunk_path} does not exist.")
                 continue
 
-            context_path_dir = os.path.join(chunk_path, 'contexts')
+            context_path_dir = os.path.join(chunk_path, 'implicit_contexts')
             # GENERATE PDG NEIGHBORHOODS
             generate_pdg_neighborhoods(chunk_path, pdg_hop=pdg_hop, context_path_dir=context_path_dir)
             continue
